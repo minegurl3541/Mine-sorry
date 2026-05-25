@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1.0,user-scalable=no">
+
+<title>I'm Sorry ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+-webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+width:100%;
+height:100%;
+overflow:hidden;
+background:black;
+color:white;
+}
+
+body{
+position:fixed;
+inset:0;
+}
+
+/* SCENES */
+
+.scene{
+position:absolute;
+inset:0;
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+padding:20px;
+opacity:0;
+pointer-events:none;
+transform:scale(1.1);
+transition:1s ease;
+overflow:hidden;
+background:
+radial-gradient(circle at top,
+rgba(255,255,255,0.12),
+transparent),
+linear-gradient(to bottom,#17001f,#000);
+}
+
+.scene.active{
+opacity:1;
+pointer-events:auto;
+transform:scale(1);
+z-index:5;
+}
+
+/* TITLES */
+
+.title{
+font-size:3rem;
+font-weight:700;
+text-align:center;
+margin-bottom:20px;
+text-shadow:0 0 20px rgba(255,0,120,0.5);
+}
+
+.text{
+max-width:700px;
+font-size:1.1rem;
+line-height:1.8;
+text-align:center;
+color:#ffdce5;
+padding:0 10px;
+}
+
+/* BUTTONS */
+
+.nextBtn{
+margin-top:40px;
+padding:16px 38px;
+border:none;
+border-radius:100px;
+font-size:1rem;
+font-weight:600;
+background:linear-gradient(45deg,#ff4d6d,#ff8fa3);
+color:white;
+box-shadow:0 0 25px rgba(255,0,100,0.4);
+cursor:pointer;
+z-index:20;
+}
+
+.nextBtn:active{
+transform:scale(0.95);
+}
+
+/* PARTICLES */
+
+#particles{
+position:fixed;
+inset:0;
+overflow:hidden;
+pointer-events:none;
+z-index:999;
+}
+
+.particle{
+position:absolute;
+width:10px;
+height:10px;
+background:rgba(255,192,203,0.8);
+border-radius:50%;
+filter:blur(2px);
+animation:fall linear infinite;
+}
+
+@keyframes fall{
+from{
+transform:translateY(-10vh) translateX(0);
+opacity:1;
+}
+to{
+transform:translateY(120vh) translateX(80px);
+opacity:0;
+}
+}
+
+/* MUSIC */
+
+#musicBtn{
+position:fixed;
+top:20px;
+right:20px;
+width:58px;
+height:58px;
+border:none;
+border-radius:50%;
+background:#ff4d6d;
+color:white;
+font-size:1.4rem;
+z-index:9999;
+box-shadow:0 0 20px rgba(255,0,120,0.5);
+}
+
+/* MEMORY CARDS */
+
+.memoryWrap{
+width:100%;
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+margin-top:20px;
+}
+
+.card{
+width:170px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(10px);
+padding:10px;
+border-radius:22px;
+animation:float 4s ease-in-out infinite;
+}
+
+.card img{
+width:100%;
+height:220px;
+object-fit:cover;
+border-radius:18px;
+}
+
+.card p{
+padding-top:12px;
+text-align:center;
+font-weight:600;
+font-size:0.95rem;
+}
+
+@keyframes float{
+50%{
+transform:translateY(-10px);
+}
+}
+
+/* ENVELOPE */
+
+.envelope{
+position:relative;
+width:300px;
+height:200px;
+margin-top:30px;
+cursor:pointer;
+}
+
+.env-top{
+position:absolute;
+width:100%;
+height:100%;
+background:#ffb3c6;
+clip-path:polygon(0 0,100% 0,50% 55%);
+transition:1s;
+transform-origin:top;
+z-index:3;
+}
+
+.letter{
+position:absolute;
+width:90%;
+height:90%;
+background:white;
+left:5%;
+top:5%;
+border-radius:18px;
+padding:20px;
+color:#333;
+transform:translateY(80px);
+transition:1s;
+overflow:auto;
+z-index:2;
+}
+
+.envelope.open .env-top{
+transform:rotateX(180deg);
+}
+
+.envelope.open .letter{
+transform:translateY(0);
+}
+
+/* SLIDER */
+
+.slider{
+position:relative;
+width:260px;
+height:360px;
+margin-top:20px;
+}
+
+.slide{
+position:absolute;
+width:100%;
+height:100%;
+object-fit:cover;
+border-radius:25px;
+opacity:0;
+transition:1s;
+}
+
+.slide.active{
+opacity:1;
+transform:scale(1.03);
+}
+
+#typing{
+margin-top:25px;
+font-size:1.1rem;
+color:#ffdce5;
+height:30px;
+}
+
+/* FLOAT WORDS */
+
+.word{
+position:absolute;
+opacity:0.15;
+font-size:1.4rem;
+animation:wordFloat 12s linear infinite;
+}
+
+@keyframes wordFloat{
+from{
+transform:translateY(100vh);
+}
+to{
+transform:translateY(-120vh);
+}
+}
+
+/* FINAL */
+
+.heart{
+font-size:8rem;
+animation:beat 1.5s infinite;
+}
+
+@keyframes beat{
+50%{
+transform:scale(1.1);
+}
+}
+
+.glass{
+position:absolute;
+inset:0;
+background:
+linear-gradient(45deg,
+transparent 48%,
+rgba(255,255,255,0.12) 50%,
+transparent 52%),
+linear-gradient(-45deg,
+transparent 48%,
+rgba(255,255,255,0.12) 50%,
+transparent 52%);
+background-size:50px 50px;
+opacity:0.5;
+}
+
+/* MOBILE */
+
+@media(max-width:768px){
+
+.title{
+font-size:2.3rem;
+}
+
+.text{
+font-size:1rem;
+}
+
+.card{
+width:145px;
+}
+
+.card img{
+height:180px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+<source src="https://files.catbox.moe/ol3k2r.mp3">
+</audio>
+
+<button id="musicBtn">🎵</button>
+
+<div id="particles"></div>
+
+<!-- PAGE 1 -->
+
+<section class="scene active">
+
+<h1 class="title">
+I'm Sorry ❤️
+</h1>
+
+<p class="text">
+Some mistakes hurt the people we love the most...
+But my love for you never changed.
+</p>
+
+<button class="nextBtn" onclick="nextScene()">
+Open My Heart
+</button>
+
+</section>
+
+<!-- PAGE 2 -->
+
+<section class="scene">
+
+<h1 class="title">
+Our Memories ✨
+</h1>
+
+<div class="memoryWrap">
+
+<div class="card">
+<img src="https://i.ibb.co/JWmMBNj7/IMG-9471.jpg">
+<p>Your smile heals me ❤️</p>
+</div>
+
+<div class="card">
+<img src="https://i.ibb.co/fdVvF6JB/IMG-9470.jpg">
+<p>I miss us...</p>
+</div>
+
+<div class="card">
+<img src="https://i.ibb.co/nqpZWf21/IMG-9467.jpg">
+<p>Please forgive me 🥺</p>
+</div>
+
+</div>
+
+<button class="nextBtn" onclick="nextScene()">
+Next ➜
+</button>
+
+</section>
+
+<!-- PAGE 3 -->
+
+<section class="scene">
+
+<h1 class="title">
+A Letter For You 💌
+</h1>
+
+<div class="envelope" onclick="openLetter()">
+
+<div class="env-top"></div>
+
+<div class="letter">
+
+<h2>To You ❤️</h2>
+
+<p>
+I know I hurt you...
+and if I could go back,
+I would hold your heart more gently.
+
+Losing your smile hurts every single day.
+</p>
+
+</div>
+
+</div>
+
+<button class="nextBtn" id="letterNext" style="display:none" onclick="nextScene()">
+Next ➜
+</button>
+
+</section>
+
+<!-- PAGE 4 -->
+
+<section class="scene">
+
+<span class="word" style="left:10%;animation-delay:0s;">I miss you</span>
+<span class="word" style="left:30%;animation-delay:2s;">Please stay</span>
+<span class="word" style="left:60%;animation-delay:4s;">Still care ❤️</span>
+
+<h1 class="title">
+Beautiful Moments 🌙
+</h1>
+
+<div class="memoryWrap">
+
+<div class="card">
+<img src="https://i.ibb.co/RG6pJp47/IMG-9463.jpg">
+</div>
+
+<div class="card">
+<img src="https://i.ibb.co/W46Yy3Pp/IMG-9462.jpg">
+</div>
+
+<div class="card">
+<img src="https://i.ibb.co/V08CTpnV/IMG-9461.jpg">
+</div>
+
+</div>
+
+<button class="nextBtn" onclick="nextScene()">
+Next ➜
+</button>
+
+</section>
+
+<!-- PAGE 5 -->
+
+<section class="scene">
+
+<h1 class="title">
+Every Photo Holds Feelings 📸
+</h1>
+
+<div class="slider">
+
+<img class="slide active" src="https://i.ibb.co/vCKwJ4gk/IMG-9457.jpg">
+
+<img class="slide" src="https://i.ibb.co/CKnG9JvZ/IMG-9276.jpg">
+
+<img class="slide" src="https://i.ibb.co/cSRHF4ND/IMG-9274.jpg">
+
+<img class="slide" src="https://i.ibb.co/LzyQwrQG/IMG-9270.jpg">
+
+</div>
+
+<div id="typing"></div>
+
+<button class="nextBtn" onclick="nextScene()">
+Final Page ➜
+</button>
+
+</section>
+
+<!-- PAGE 6 -->
+
+<section class="scene">
+
+<div class="glass"></div>
+
+<div class="heart">
+❤️‍🩹
+</div>
+
+<h1 class="title">
+I'm Truly Sorry...
+</h1>
+
+<p class="text">
+Even broken hearts still carry love.
+Thank you for every memory.
+I will always care for you ❤️
+</p>
+
+</section>
+
+<script>
+
+const scenes = document.querySelectorAll(".scene");
+
+let current = 0;
+
+function showScene(index){
+
+scenes.forEach(scene=>{
+
+scene.classList.remove("active");
+
+});
+
+scenes[index].classList.add("active");
+
+}
+
+function nextScene(){
+
+if(current < scenes.length-1){
+
+current++;
+
+showScene(current);
+
+}
+
+}
+
+/* ENVELOPE */
+
+function openLetter(){
+
+document.querySelector(".envelope")
+.classList.add("open");
+
+document.getElementById("letterNext")
+.style.display = "block";
+
+}
+
+/* PARTICLES */
+
+const particles =
+document.getElementById("particles");
+
+for(let i=0;i<30;i++){
+
+const p = document.createElement("div");
+
+p.classList.add("particle");
+
+p.style.left =
+Math.random()*100 + "vw";
+
+p.style.animationDuration =
+(6 + Math.random()*8) + "s";
+
+p.style.animationDelay =
+Math.random()*6 + "s";
+
+p.style.width =
+(6 + Math.random()*10) + "px";
+
+p.style.height =
+p.style.width;
+
+particles.appendChild(p);
+
+}
+
+/* MUSIC */
+
+const music =
+document.getElementById("music");
+
+const musicBtn =
+document.getElementById("musicBtn");
+
+document.body.addEventListener("click",()=>{
+
+music.play();
+
+},{once:true});
+
+musicBtn.onclick = ()=>{
+
+if(music.paused){
+
+music.play();
+musicBtn.innerHTML="🎵";
+
+}else{
+
+music.pause();
+musicBtn.innerHTML="🔇";
+
+}
+
+};
+
+/* SLIDER */
+
+const slides =
+document.querySelectorAll(".slide");
+
+const typing =
+document.getElementById("typing");
+
+const messages = [
+
+"I regret hurting you...",
+"You deserve soft love ❤️",
+"I still choose you ✨",
+"Please forgive me 🥺"
+
+];
+
+let slideIndex = 0;
+
+function runSlider(){
+
+slides.forEach(slide=>{
+
+slide.classList.remove("active");
+
+});
+
+slideIndex++;
+
+if(slideIndex >= slides.length){
+
+slideIndex = 0;
+
+}
+
+slides[slideIndex]
+.classList.add("active");
+
+typing.innerHTML =
+messages[slideIndex];
+
+}
+
+setInterval(runSlider,3000);
+
+</script>
+
+</body>
+</html>
